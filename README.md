@@ -1,88 +1,76 @@
-\# Uncertainty-Aware Predictive Maintenance
+# Uncertainty-Aware Predictive Maintenance
 
+> Probabilistic Temporal Convolutional Networks that predict the Remaining Useful Life (RUL) of turbofan engines as a distribution, then simulate maintenance policies that minimise expected cost.
 
+**Team:** Team 6 • **Track:** 2 — Applied research • **Course:** DLE-AI-202 Deep Learning, AI Academy (Cohort II 2026)
 
-Deep Learning Final Project (AI Academy, DLE-AI-202, Cohort II 2026), Track 2: applied research.
+---
 
-
-
-Probabilistic Temporal Convolutional Networks predict the Remaining Useful Life (RUL)
-
-of turbofan engines as a distribution (NASA C-MAPSS), and maintenance policies are
-
-simulated to minimise expected cost under breakdown and service costs.
-
-
-
-\## Setup
-
-
+## Quick start
 
 ```bash
-
-python -m venv .venv
-
-\# Windows: .venv\\Scripts\\Activate.ps1      Linux: source .venv/bin/activate
-
+# 1. Clone & install
+git clone https://github.com/Nurana100/uncertainty-aware-predictive-maintenance
+cd uncertainty-aware-predictive-maintenance
+python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 
+# 2. Install PyTorch (pick one)
+pip install torch --index-url https://download.pytorch.org/whl/cpu     # laptop (CPU)
+pip install torch --index-url https://download.pytorch.org/whl/cu128   # server (CUDA 12.8)
+
+# 3. Get the data (see "Data" below), then check the pipeline
+python src/data.py
 ```
 
+---
 
+## Data
 
-PyTorch (install separately):
-
-\- Laptop (CPU): `pip install torch --index-url https://download.pytorch.org/whl/cpu`
-
-\- Server (CUDA 12.8): `pip install torch --index-url https://download.pytorch.org/whl/cu128`
-
-
-
-\## Data
-
-
-
-Download CMAPSSData.zip from https://data.nasa.gov/docs/legacy/CMAPSSData.zip
-
-and unzip it into `data/CMAPSS/`. The `data/` folder is not tracked by Git.
-
-
-
-\## Quick check
-
-
+NASA C-MAPSS turbofan engine degradation simulation (FD001–FD004).
 
 ```bash
-
-python src/data.py
-
+# Download and unzip into data/CMAPSS/
+https://data.nasa.gov/docs/legacy/CMAPSSData.zip
 ```
 
+The `data/` folder is not tracked by Git.
 
+---
 
-\## Team and modules
+## Approach
 
+1. **Data:** engine-level train/validation split, per-sensor scaling, 30-cycle windows, RUL capped at 125.
+2. **Models:** point-prediction TCN and baselines.
+3. **Uncertainty:** Gaussian and quantile heads, deep ensembles, conformal calibration.
+4. **Decision simulation:** maintenance policies compared under breakdown and service costs.
+5. **Evaluation:** RUL RMSE, interval coverage, expected maintenance cost.
 
+---
+
+## Repository layout
+
+| Path | Contents |
+|---|---|
+| `src/` | Source code |
+| `runs/` | Tracked experiment runs and metric logs |
+| `report/` | IEEE paper |
+| `presentation/` | Slides |
+
+---
+
+## Team
 
 | Module | Owner |
-
 |---|---|
-
 | Data | |
-
 | Models | |
-
 | Uncertainty | |
-
 | Decision simulation | |
-
 | Evaluation, writing, repo | |
 
+---
 
+## Reproducing the headline result
 
-\## Reproducing the headline result
-
-
-
-TODO: one command goes here before the code freeze.
-
+> TODO: one command goes here before the code freeze.
